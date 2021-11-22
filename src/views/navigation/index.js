@@ -12,7 +12,7 @@ const NavLinks = [
   {
     id: 'leaderBoard',
     title: 'LeaderBoard',
-    navLink: '/leaderBoard'
+    navLink: '/leaderboard'
   }
 ]
 
