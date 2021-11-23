@@ -10,11 +10,11 @@ function Dashboard() {
 
   const [currentTab, setCurrentTab] = useState(UNANSWERED_QUESTION)
 
-  const unanswered = (authedUser && questions) ? Object.keys(questions).filter((qId) => {
+  const answered = (authedUser && questions) ? Object.keys(questions).filter((qId) => {
     return questions[qId].optionOne.votes.includes(authedUser) || questions[qId].optionTwo.votes.includes(authedUser)
   }).sort((fqId, sqId) => questions[sqId].timestamp - questions[fqId].timestamp) : null
 
-  const answered = (authedUser && questions) ? Object.keys(questions).filter((qId) => {
+  const unanswered = (authedUser && questions) ? Object.keys(questions).filter((qId) => {
     return !(questions[qId].optionOne.votes.includes(authedUser) || questions[qId].optionTwo.votes.includes(authedUser))
   }).sort((fqId, sqId) => questions[sqId].timestamp - questions[fqId].timestamp) : null
 
