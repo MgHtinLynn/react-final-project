@@ -22,7 +22,7 @@ export default function QuestionDetail() {
   const author = (users && question) ? users[question.author] : null
 
   const hasVoted = isVoted(question?.optionOne, authedUser) || isVoted(question?.optionTwo, authedUser)
-  console.log('hasVoted', hasVoted)
+
   return (
     <main className="bg-gray-100 h-screen">
       {

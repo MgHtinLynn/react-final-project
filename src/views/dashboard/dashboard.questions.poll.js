@@ -19,7 +19,6 @@ export default function DashboardQuestionsPoll({questionId}) {
   const optionOneText = optionOne.text.split(' ')
   const optionTwoText = optionTwo.text.split(' ')
 
-
   const getQuestionPrefix = () => {
     let filter = true
     const questionPrefix = optionOneText.filter((text, id) => {

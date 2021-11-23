@@ -19,7 +19,7 @@ export default function QuestionNew() {
               </div>
             </div>
           </div>
-          <QuestionNewForm/>w
+          <QuestionNewForm/>
         </div>
       </div>
     </main>

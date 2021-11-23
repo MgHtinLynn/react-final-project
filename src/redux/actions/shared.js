@@ -1,5 +1,4 @@
 import { getInitialData, saveQuestionAnswer, saveQuestion } from '@utils/api'
-//import { setAuthedUser } from './authedUser'
 import { receiveUsers } from './user'
 import { receiveQuestions, ADD_ANSWER, ADD_QUESTION } from './questions'
 import { showLoading, hideLoading } from 'react-redux-loading'
