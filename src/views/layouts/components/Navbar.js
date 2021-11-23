@@ -1,8 +1,8 @@
 import React  from 'react'
 import { Disclosure  } from "@headlessui/react"
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
+import { MenuIcon, XIcon } from "@heroicons/react/outline"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink, useLocation } from "react-router-dom"
+import {Link, NavLink, useLocation} from "react-router-dom"
 import { NavLinks } from "../../navigation"
 import { removeAuthedUser } from "../../../redux/actions/authedUser"
 
@@ -13,6 +13,10 @@ function Navbar() {
   const dispatch = useDispatch()
 
   const activeClass = (path) => {
+    return pathname === path ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+  }
+
+  const mobileActiveClass = (path) => {
     return pathname === path ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
   }
 
@@ -74,81 +78,42 @@ function Navbar() {
 
           <Disclosure.Panel className="lg:hidden">
             <div className="pt-2 pb-3 space-y-1">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Calendar
-              </Disclosure.Button>
+              {
+                NavLinks.map((nav) => (
+                  <Link key={nav.id} to={nav.navLink}>
+                      <Disclosure.Button
+                      as="button"
+                      type="button"
+                      className={`${mobileActiveClass(nav.navLink)} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+                    >
+                      {nav.title}
+                    </Disclosure.Button>
+                  </Link>
+                ))
+              }
+
             </div>
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
+            {
+              authedUser && (
+                <div className="pt-4 pb-3 border-t border-gray-200">
+                  <div className="flex items-center px-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src={users[authedUser].avatarURL}
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium text-gray-800">Hello {authedUser}</div>
+                    </div>
+                  </div>
+                  <div className="mt-3 space-y-1">
+                    <button onClick={logout} className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">Sign out</button>
+                  </div>
                 </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">Tom Cook</div>
-                  <div className="text-sm font-medium text-gray-500">tom@example.com</div>
-                </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-              </div>
-              <div className="mt-3 space-y-1">
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                >
-                  Your Profile
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                >
-                  Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
-                >
-                  Sign out
-                </Disclosure.Button>
-              </div>
-            </div>
+              )
+            }
           </Disclosure.Panel>
         </>
       )}

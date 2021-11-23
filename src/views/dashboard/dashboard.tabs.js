@@ -25,7 +25,7 @@ export default function DashboardTabs({setCurrentTab}) {
   }
   return (
     <div>
-      <div className="sm:hidden">
+      <div className="sm:hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-white">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
         </label>
@@ -38,7 +38,7 @@ export default function DashboardTabs({setCurrentTab}) {
           defaultValue={tabs.find((tab) => tab.current).name}
         >
           {tabs.map((tab) => (
-            <option key={tab.name}>{tab.label}</option>
+            <option key={tab.name} value={tab.name}>{tab.label}</option>
           ))}
         </select>
       </div>
